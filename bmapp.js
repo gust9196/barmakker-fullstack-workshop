@@ -18,6 +18,8 @@ app.use(
     })
 );
 
+// bars table
+
 app.get('/bars', (req, res) => {
     const query = "SELECT * FROM barmakker.bars;";
     mysqlConnection.query(
@@ -48,6 +50,104 @@ app.get('/bars/:id', (req, res) => {
     );
 })
 
+// bar_features table
+
+app.get('/bar_features', (req, res) => {
+    const query = "SELECT * FROM barmakker.bar_features;";
+    mysqlConnection.query(
+        query,
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+app.get('/bar_features/:id', (req, res) => {
+    const query = "SELECT * FROM barmakker.bar_features where bar_features_id = ?;";
+    const customer_id = req.params.id;
+    mysqlConnection.query(
+        query,
+        [customer_id],
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+// user table
+
+app.get('/user', (req, res) => {
+    const query = "SELECT * FROM barmakker.user;";
+    mysqlConnection.query(
+        query,
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+app.get('/user/:id', (req, res) => {
+    const query = "SELECT * FROM barmakker.user where user_id = ?;";
+    const customer_id = req.params.id;
+    mysqlConnection.query(
+        query,
+        [customer_id],
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+// favorites
+
+app.get('/favorites', (req, res) => {
+    const query = "SELECT * FROM barmakker.favorites;";
+    mysqlConnection.query(
+        query,
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+/*
+app.get('/user/:id', (req, res) => {
+    const query = "SELECT * FROM barmakker.farvorites where user_id = ?;";
+    const customer_id = req.params.id;
+    mysqlConnection.query(
+        query,
+        [customer_id],
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
+ */
 
 app.listen(port, () => {
     console.log(`Node.js REST API listening at http://localhost:${port}`);
