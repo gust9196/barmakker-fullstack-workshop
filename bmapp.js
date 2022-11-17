@@ -18,7 +18,7 @@ app.use(
     })
 );
 
-// bars table
+// EVERYTHING FROM BARS TABLE
 
 app.get('/bars', (req, res) => {
     const query = "SELECT * FROM barmakker.bars;";
@@ -33,6 +33,8 @@ app.get('/bars', (req, res) => {
         }
     );
 })
+
+// BARS TABLE MED ID
 
 app.get('/bars/:id', (req, res) => {
     const query = "SELECT * FROM barmakker.bars where bar_id = ?;";
@@ -50,7 +52,28 @@ app.get('/bars/:id', (req, res) => {
     );
 })
 
-// bar_features table
+// BARS TABLE MED POST
+
+app.post('/bars/create', (req, res,) => {
+    const bar_name = req.body.bar_name;
+    const bar_location = req.body.bar_location
+    const bar_city = req.body.bar_city
+    const bar_description = req.body.bar_description
+    let query = "INSERT INTO bars (bar_name, bar_location, bar_city, bar_description) VALUES (?,?,?,?)";
+    mysqlConnection.query(
+        query,
+        [bar_name, bar_location, bar_city, bar_description],
+        (err, results, fields) => {
+            if (!err) {
+                res.sendStatus(200);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+});
+
+// EVERYTHING FROM BAR_FEATURES TABLE
 
 app.get('/bar_features', (req, res) => {
     const query = "SELECT * FROM barmakker.bar_features;";
@@ -65,6 +88,8 @@ app.get('/bar_features', (req, res) => {
         }
     );
 })
+
+// BAR_FEATURES TABLE ID
 
 app.get('/bar_features/:id', (req, res) => {
     const query = "SELECT * FROM barmakker.bar_features where bar_features_id = ?;";
@@ -82,7 +107,32 @@ app.get('/bar_features/:id', (req, res) => {
     );
 })
 
-// user table
+// BAR FEATURES POST
+
+app.post('/bar_features/create', (req, res,) => {
+    const fk_bar_id = req.body.fk_bar_id;
+    const opening_hours = req.body.opening_hours
+    const prices = req.body.prices
+    const games = req.body.games
+    const billiard = req.body.billiard
+    const smoking_allowed = req.body.smoking_allowed
+    const happy_hour = req.body.happy_hour
+    const viser_sport = req.body.viser_sport
+    let barFeatureQuery = "INSERT INTO bar_features (fk_bar_id, opening_hours, prices, games, billiard, smoking_allowed, happy_hour, viser_sport) VALUES (?,?,?,?,?,?,?,?)";
+    mysqlConnection.query(
+        barFeatureQuery,
+        [fk_bar_id, opening_hours, prices, games, billiard, smoking_allowed, happy_hour, viser_sport],
+        (err, results, fields) => {
+            if (!err) {
+                res.sendStatus(200);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+});
+
+// EVERYTHING FROM USER TABLE
 
 app.get('/user', (req, res) => {
     const query = "SELECT * FROM barmakker.user;";
@@ -97,6 +147,8 @@ app.get('/user', (req, res) => {
         }
     );
 })
+
+// USER TABLE ID
 
 app.get('/user/:id', (req, res) => {
     const query = "SELECT * FROM barmakker.user where user_id = ?;";
@@ -114,7 +166,26 @@ app.get('/user/:id', (req, res) => {
     );
 })
 
-// favorites
+// USER TABLE POST
+
+app.post('/user/create', (req, res,) => {
+    const user_name = req.body.user_name;
+    const user_email = req.body.user_email
+    let query = "INSERT INTO user (user_name, user_email) VALUES (?,?)";
+    mysqlConnection.query(
+        query,
+        [user_name, user_email],
+        (err, results, fields) => {
+            if (!err) {
+                res.sendStatus(200);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+});
+
+// FAVORITES TABLE
 
 app.get('/favorites', (req, res) => {
     const query = "SELECT * FROM barmakker.favorites;";
