@@ -9,6 +9,8 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
     multipleStatements: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 mysqlConnection.connect((err) => {
