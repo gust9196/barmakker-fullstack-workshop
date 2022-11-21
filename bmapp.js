@@ -73,6 +73,23 @@ app.post('/bars/create', (req, res,) => {
     );
 });
 
+// BARS OG BAR_FEATURES JOINET I ET TABLE
+
+app.get('/johnny', (req, res) => {
+    console.log('helloer world')
+    let query = "SELECT * FROM barmakker.bars INNER JOIN bar_features ON bars.bar_id = bar_features.fk_bar_id;";
+    mysqlConnection.query(
+        query,
+        (err, results, fields) => {
+            if (!err) {
+                res.json(results);
+            } else {
+                console.log(err);
+            }
+        }
+    );
+})
+
 // EVERYTHING FROM BAR_FEATURES TABLE
 
 app.get('/bar_features', (req, res) => {
