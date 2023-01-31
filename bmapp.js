@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 // If the application is running localhost allow all requests,
 // otherwise add cors for specific website
 // Remember to add the NODE_ENV="prod" on server!
-const cors_url = process.env.NODE_ENV === "prod" ? URL_FOR_FRONTEND : "https://github.com/Frizzy1209/BarMakker";
+const cors_url = process.env.NODE_ENV === "prod" ? URL_FOR_FRONTEND : "https://frizzy1209.github.io/BarMakker/";
 app.use(
     cors({
         origin: cors_url
